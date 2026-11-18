@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAILINDAH ACADEMY</title>
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --biru: #e75480;
+  --biru-gelap: #c93669;
+  --pucat: #ffe4ec;
+  --abu: #fff5f8;
+  --teks: #49313c;
+  --pink-light: #fff0f5;
+  --pink-medium: #f8bbd0;
+  --white: #ffffff;
+  --shadow: 0 5px 20px rgba(231,84,128,.12);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--abu);
+  color: var(--teks);
+  line-height: 1.7;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  cursor: default;
+}
+
+
+
+header {
+  background: rgba(255,255,255,.97);
+  box-shadow: 0 3px 15px rgba(231,84,128,.12);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--biru);
+  font-weight: 900;
+  font-size: 19px;
+}
+
+.logo img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  border: 2px solid var(--biru);
+  border-radius: 50%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--biru-gelap);
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: .3s;
+}
+
+.nav-links a:hover {
+  background: var(--pucat);
+  color: var(--biru);
+}
+
+.menu-btn {
+  display: none;
+  border: none;
+  background: var(--biru);
+  color: white;
+  padding: 8px 13px;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: var(--biru);
+  color: white;
+  padding: 11px 20px;
+  border-radius: 9px;
+  font-weight: bold;
+  transition: .3s;
+}
+
+.btn:hover {
+  background: var(--biru-gelap);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(231,84,128,.25);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: var(--biru);
+}
+
+
+
+.slider {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  background: var(--pink-medium);
+  border: 3px solid white;
+  margin: 18px 8% 0;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: .6s;
+}
+
+.slide.active {
+  opacity: 1;
+  
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+
+.slide img:hover {
+  opacity: .92;
+}
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(173,20,87,.85),
+    rgba(233,84,128,.35)
+  );
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  color: white;
+  pointer-events: none;
+}
+
+.slide-overlay .btn {
+  pointer-events: auto;
+}
+
+.slide-overlay h3 {
+  font-size: 32px;
+  line-height: 1.3;
+}
+
+.slide-overlay p {
+  max-width: 550px;
+  margin: 10px 0 18px;
+  font-size: 14px;
+}
+
+.badge {
+  background: white;
+  color: var(--biru-gelap);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.banner-hint {
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  background: rgba(173,20,87,.7);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.slider-nav {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.6);
+  border: none;
+}
+
+.dot.active {
+  background: white;
+  transform: scale(1.3);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.35);
+  color: white;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 22px;
+  z-index: 5;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+
+
+section {
+  padding: 45px 8%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.section-title {
+  margin-bottom: 24px;
+}
+
+.section-title h2 {
+  color: var(--biru-gelap);
+  font-size: 27px;
+  margin-bottom: 5px;
+}
+
+.section-title p {
+  color: #987783;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  border: 1px solid #f9dce6;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 9px 25px rgba(231,84,128,.17);
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 22px;
+}
+
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 18px;
+}
+
+
+
+.sambutan {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 35px;
+  align-items: center;
+}
+
+.sambutan img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.kepala-img {
+  width: 180px !important;
+  height: 180px !important;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid var(--pink-medium);
+  cursor: zoom-in;
+}
+
+
+
+.berita-card {
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.berita-card img {
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+}
+
+.berita-content {
+  padding: 18px;
+}
+
+.berita-content h3 {
+  color: var(--biru-gelap);
+  margin-bottom: 8px;
+}
+
+
+
+.struktur-box,
+.guru-card {
+  text-align: center;
+}
+
+.struktur-box img,
+.guru-card img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--pucat);
+  margin-bottom: 10px;
+}
+
+
+
+.ekstra-card {
+  padding: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.ekstra-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.ekstra-content {
+  padding: 18px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--pucat);
+  color: var(--biru-gelap);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+
+
+.ppdb {
+  background: linear-gradient(135deg,#e75480,#ad1457);
+  color: white;
+}
+
+.ppdb .section-title h2,
+.ppdb .section-title p {
+  color: white;
+}
+
+.form-box {
+  max-width: 650px;
+  margin: auto;
+  background: white;
+  color: var(--teks);
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(100,20,50,.12);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+  color: var(--biru-gelap);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #f1c4d3;
+  border-radius: 9px;
+  outline: none;
+  transition: .3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--biru);
+  box-shadow: 0 0 0 3px rgba(231,84,128,.12);
+}
+
+
+
+.alur-pendaftaran {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 25px;
+  gap: 15px;
+  text-align: center;
+}
+
+.step-box {
+  background: var(--pink-light);
+  color: var(--teks);
+  padding: 15px;
+  border-radius: 12px;
+  flex: 1;
+  border: 2px dashed var(--pink-medium);
+}
+
+.step-number {
+  width: 35px;
+  height: 35px;
+  background: var(--biru);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-weight: bold;
+}
+
+
+
+.bottom-bar {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  border: 1px solid #f3c4d3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: white;
+  margin-top: 25px;
+  box-shadow: var(--shadow);
+}
+
+.bottom-bar > div {
+  padding: 18px;
+  border-right: 1px solid #f5d6e0;
+  cursor: pointer;
+}
+
+.bottom-bar > div:last-child {
+  border-right: none;
+}
+
+.bottom-bar > div:hover {
+  background: var(--pink-light);
+}
+
+.bottom-bar h4 {
+  color: var(--biru-gelap);
+  margin-bottom: 8px;
+}
+
+.bottom-bar p,
+.bottom-bar a {
+  font-size: 13px;
+  color: #987783;
+  display: block;
+}
+
+
+
+.kontak-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.kontak-item {
+  background: var(--pink-light);
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.kontak-icon {
+  width: 46px;
+  height: 46px;
+  background: var(--biru);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+
+
+footer {
+  background: linear-gradient(135deg,#ad1457,#e75480);
+  color: white;
+  padding: 45px 8% 18px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+footer a {
+  display: block;
+  margin-bottom: 7px;
+  color: #ffe4ec;
+}
+
+footer a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(95,25,55,.65);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: 28px;
+  border-radius: 18px;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0,0,0,.15);
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  border: none;
+  background: none;
+  font-size: 26px;
+  color: var(--biru);
+}
+
+/* LIGHTBOX */
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(70,20,45,.94);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 75vh;
+  border-radius: 12px;
+}
+
+.lightbox p {
+  color: white;
+  margin-top: 12px;
+}
+
+/* PORTAL SISWA */
+
+#portal {
+  display: none;
+}
+
+.portal-header {
+  background: linear-gradient(135deg,#ad1457,#e75480);
+  color: white;
+  padding: 18px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.portal-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 80vh;
+}
+
+.sidebar {
+  background: white;
+  padding: 20px 12px;
+  border-right: 1px solid #f5d6e0;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 9px;
+  text-align: left;
+  background: white;
+  color: var(--biru-gelap);
+  font-weight: bold;
+  margin-bottom: 8px;
+  transition: .3s;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  background: var(--pucat);
+  color: var(--biru-gelap);
+}
+
+.portal-main {
+  padding: 25px;
+}
+
+.portal-page {
+  display: none;
+}
+
+.portal-page.active {
+  display: block;
+}
+
+.portal-page h2 {
+  color: var(--biru-gelap);
+  margin-bottom: 15px;
+}
+
+.pengumuman-item {
+  background: white;
+  padding: 18px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border-left: 5px solid var(--biru);
+  box-shadow: var(--shadow);
+}
+
+.fasilitas-card {
+  cursor: pointer;
+}
+
+.fasilitas-card:hover {
+  border: 2px solid var(--biru);
+}
+
+/* RESPONSIVE TABLET */
+
+@media(max-width:900px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: var(--shadow);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .grid3,
+  .grid4 {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .sambutan,
+  .kontak-grid,
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .alur-pendaftaran {
+    flex-direction: column;
+  }
+}
+
+
+@media(max-width:600px) {
+  section {
+    padding: 30px 6%;
+  }
+
+  .grid3,
+  .grid4,
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .sidebar button {
+    min-width: 120px;
+  }
+
+  .bottom-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-bar > div {
+    border-right: none;
+    border-bottom: 1px solid #f5d6e0;
+  }
+
+  .slider {
+    height: 360px;
+    margin: 12px 4% 0;
+  }
+
+  .slide-overlay h3 {
+    font-size: 24px;
+  }
+
+  .slide-overlay p {
+    font-size: 13px;
+  }
+
+  .form-box {
+    padding: 20px;
+  }
+
+  .portal-main {
+    padding: 15px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+}
+
+</style>
+</head>
+<body>
+<div id="website">
+<header><nav class="navbar"><a href="#" onclick="showPage('home')" class="logo"><img src="logo.jpg" alt="Logo"><span>Kailindah Academy</span></a><button class="menu-btn" onclick="toggleMenu()">☰</button><div class="nav-links" id="navLinks"><a href="#" onclick="showPage('home');tutupMenu()">Beranda</a><a href="#" onclick="showPage('profil');tutupMenu()">Profil</a><a href="#" onclick="showPage('akademik');tutupMenu()">Akademik</a><a href="#" onclick="showPage('kesiswaan');tutupMenu()">Kesiswaan</a><a href="#" onclick="showPage('fasilitas');tutupMenu()">Fasilitas</a><a href="#" onclick="showPage('ppdb');tutupMenu()">PPDB</a><a href="#" onclick="showPage('berita');tutupMenu()">Berita</a><a href="#" onclick="showPage('kontak');tutupMenu()">Kontak</a><button class="btn" onclick="bukaLogin()">Login Portal</button></div></nav></header>
+
+
+<div id="page-home" class="page active">
+<div class="slider">
+<div class="slide active"><img src="ppj.jpg" alt="Prestasi Siswa"><div class="slide-overlay"><div><span class="badge">🏆 PRESTASI SISWA</span><h3>Prestasi Siswa</h3><p>Juara 1 Olimpiade Sains Tingkat Bandung Barat 2025</p><a href="#" onclick="showPage('kesiswaan')" class="btn">Lihat Prestasi →</a></div></div></div>
+<div class="slide"><img src="ll.jpeg" alt="Fasilitas"><div class="slide-overlay"><div><span class="badge">✨ FASILITAS</span><h3>Fasilitas</h3><p>Lab Komputer, Perpustakaan, Lapangan & Aula Modern</p><a href="#" onclick="showPage('fasilitas')" class="btn">Jelajahi Fasilitas →</a></div></div></div>
+<div class="slide"><img src="sek.jpg" alt="Gedung Sekolah SMA Negeri Nusantara"><div class="slide-overlay"><div><span class="badge">🏫 GEDUNG SEKOLAH</span><h3>Gedung Sekolah</h3><p>Gedung modern, lingkungan belajar nyaman dan asri</p><a href="#" onclick="showPage('profil')" class="btn">Lihat Profil Sekolah →</a></div></div></div>
+<div class="slide"><img src="Sekolah.png" alt="PPDB"><div class="slide-overlay"><div><span class="badge">🏫 PPDB 2026 / 2027 DIBUKA</span><h3>Selamat Datang di SMA Negeri Nusantara</h3><p>Membangun generasi cerdas, berkarakter, dan kreatif</p><a href="#" onclick="showPage('ppdb')" class="btn">Daftar PPDB →</a></div></div></div>
+<div class="banner-hint">🔍 Klik foto banner untuk zoom</div>
+<button class="arrow prev" onclick="gantiSlide(-1)">‹</button><button class="arrow next" onclick="gantiSlide(1)">›</button><div class="slider-nav"><button class="dot active" onclick="keSlide(0)"></button><button class="dot" onclick="keSlide(1)"></button><button class="dot" onclick="keSlide(2)"></button><button class="dot" onclick="keSlide(3)"></button></div>
+</div>
+
+<section style="padding-bottom:10px"><div class="container sambutan">
+<div style="text-align:center">
+<img src="mingyu.jpg" alt="" class="kepala-img" onclick="bukaFotoKepala(this.src, this.alt)">
+<p style="margin-top:10px;font-weight:bold">Kepala Sekolah Kailindah Academy</p>
+<p style="font-size:12px;color:#888">Klik foto untuk zoom</p>
+</div>
+<div><h2 style="color:var(--biru)">Sambutan Kepala Sekolah</h2><p>Selamat datang di website resmi Kailindah Academy. Kami berkomitmen memberikan pendidikan berkualitas dengan mengembangkan kemampuan akademik, kreativitas, serta karakter setiap peserta didik.</p><br><b>Kepala Sekolah</b><p>Dr. Kim Mingyu, M.Pd.</p><button class="btn" style="margin-top:10px" onclick="showPage('profil')">Lihat Profil Sekolah →</button></div></div></section>
+
+<section style="padding-top:10px;padding-bottom:10px"><div class="container"><div class="section-title"><h2>Berita Terbaru</h2></div><div class="grid3"><div class="card berita-card" onclick="showPage('berita')"><img src="ll.jpeg" alt="Berita 1"><div class="berita-content"><h3>Kegiatan Belajar Mengajar</h3><p>Siswa mengikuti pembelajaran dengan penuh semangat.</p><button class="btn" style="margin-top:10px">Baca Selengkapnya →</button></div></div><div class="card berita-card" onclick="showPage('berita')"><img src="sis.jpeg" alt="Berita 2"><div class="berita-content"><h3>Prestasi Siswa</h3><p>Mengembangkan bakat melalui berbagai perlombaan.</p><button class="btn" style="margin-top:10px">Baca Selengkapnya →</button></div></div><div class="card berita-card" onclick="showPage('berita')"><img src="sek.jpg" alt="Berita 3"><div class="berita-content"><h3>Penerimaan Siswa Baru</h3><p>PPDB 2026 telah dibuka.</p><button class="btn" style="margin-top:10px" onclick="event.stopPropagation();showPage('ppdb')">Daftar Sekarang →</button></div></div></div></div></section>
+
+<section style="padding-top:10px"><div class="container"><div class="card" style="cursor:pointer" onclick="showPage('kesiswaan')"><h2 style="color:var(--biru)">Kegiatan Mendatang</h2><p>• 15 Nov: Lomba Futsal Antar Kelas<br>• 20 Nov: Class Meeting<br>• 25 Nov: Peringatan Hari Guru<br>• 1 Des: Bakti Sosial</p><button class="btn" style="margin-top:10px">Lihat Semua Kegiatan →</button></div><br><div class="card" style="cursor:pointer" onclick="showPage('kesiswaan')"><h2 style="color:var(--biru)">Ekstrakurikuler</h2><p>🏕️ Pramuka &nbsp; 🏀 Basket &nbsp; ⚽ Futsal &nbsp; 🇮🇩 Paskibra &nbsp; ⛑️ PMR &nbsp; 🗣️ English Club &nbsp; 💃 Seni Tari &nbsp; 🕌 Rohis &nbsp; 👑 OSIS</p><button class="btn" style="margin-top:10px">Lihat Ekstrakurikuler →</button></div><br><div class="card" style="cursor:pointer" onclick="showPage('kesiswaan')"><h2 style="color:var(--biru)">Kegiatan OSIS</h2><p>LDKS, Class Meeting, Pemilihan Ketua OSIS, dan Bakti Sosial.</p><button class="btn" style="margin-top:10px">Lihat Kegiatan OSIS →</button></div>
+<div class="bottom-bar">
+<div onclick="showPage('kesiswaan')"><h4>Tautan Penting</h4><a href="#">• Kemendikbudristek</a><a href="#" onclick="event.stopPropagation();showPage('ppdb')">• Portal PPDB</a><a href="#">• E-Learning Sekolah</a></div>
+<div onclick="showPage('kesiswaan')"><h4>Kalender OSIS</h4><p>• Senin: Upacara Bendera<br>• Jumat: Jumat Bersih<br>• Sabtu: Ekstrakurikuler & OSIS</p></div>
+<div onclick="showPage('kontak')"><h4>Alamat & Kontak</h4><p>Lembang, Jawa Barat<br>📞 (022) 1234-5678<br>✉️ info@kailindahacademy.sch.id</p></div>
+<div onclick="showPage('kontak')"><h4>Peta Lokasi</h4><div style="background:#e8f0fa;border:1px solid #062d68;border-radius:8px;padding:20px;text-align:center;font-size:30px">📍</div><p style="text-align:center;font-size:11px;color:var(--biru);font-weight:bold">Klik untuk lihat Peta →</p></div>
+</div>
+</div></section>
+</div>
+
+<div id="page-profil" class="page">
+<section><div class="container"><div class="section-title"><h2>Halaman Profil</h2><p>Visi & Misi - Struktur Organisasi</p></div><div style="text-align:center;margin-bottom:20px"><button class="btn" onclick="showPage('home')">← Kembali ke Beranda</button></div><div class="grid2"><div class="card"><h3 style="color:var(--biru)">Visi & Misi</h3><p><b>Visi:</b> Menjadi sekolah unggul yang menghasilkan generasi cerdas, berkarakter, kreatif, dan berprestasi.</p><br><p><b>Misi:</b></p><ul style="padding-left:20px"><li>Pembelajaran berkualitas</li><li>Kembangkan potensi siswa</li><li>Karakter disiplin & tanggung jawab</li><li>Prestasi akademik & nonakademik</li></ul></div><div class="card"><h3 style="color:var(--biru)">Tentang Sekolah</h3><p>Kailindah Academy mengutamakan pendidikan berkualitas di Lembang, Bandung Barat.</p></div></div></div></section>
+<section style="background:#fff"><div class="container"><div class="section-title"><h2>Struktur Organisasi</h2></div><div class="grid3"><div class="card struktur-box"><img src="mingyu.jpg" alt="Kepala Sekolah"><h3>Dr. Kim Mingyu, M.Pd.</h3><p>Kepala Sekolah</p></div><div class="card struktur-box"><img src="kk.jpeg" alt="Wakil"><h3>Martin Edwards, S.Pd.</h3><p>Wakil Kepala Sekolah</p></div><div class="card struktur-box"><img src="ss.jpg" alt="TU"><h3>Scoups, S.Pd.</h3><p>Kepala Tata Usaha</p></div></div></div></section>
+</div>
+
+
+<div id="page-akademik" class="page">
+<section><div class="container"><div class="section-title"><h2>Halaman Akademik</h2><p>Kurikulum & Daftar Guru</p></div><div style="text-align:center;margin-bottom:20px"><button class="btn" onclick="showPage('home')">← Kembali ke Beranda</button></div><div class="card"><h3 style="color:var(--biru)">Kurikulum</h3><p>Kurikulum Merdeka - Pembelajaran berbasis proyek, literasi, numerasi, dan karakter.</p></div></div></section>
+<section style="background:#fff"><div class="container"><div class="section-title"><h2>Daftar Guru</h2></div><div class="grid4"><div class="card guru-card"><img src="pacarka.jpg" alt=""><h3>Seonghyeon, S.Pd.</h3><p>Guru Bahasa Indonesia</p><button class="btn" style="margin-top:8px;padding:7px 12px;font-size:12px" onclick="alert('Rina Marlina - Bahasa Indonesia')">Detail Guru</button></div><div class="card guru-card"><img src="keonho.jpg" alt="Agus Setiawan"><h3>Keonho, S.Pd.</h3><p>Guru Matematika</p><button class="btn" style="margin-top:8px;padding:7px 12px;font-size:12px" onclick="alert('Agus Setiawan - Matematika')">Detail Guru</button></div><div class="card guru-card"><img src="juhoon.jpg" alt="Putri Amelia"><h3>Kim Juhoon, S.Pd.</h3><p>Guru Bahasa Inggris</p><button class="btn" style="margin-top:8px;padding:7px 12px;font-size:12px" onclick="alert('Putri Amelia - Bahasa Inggris')">Detail Guru</button></div><div class="card guru-card"><img src="james.jpg" alt="Fajar Nugraha"><h3>James, S.Kom.</h3><p>Guru Informatika</p><button class="btn" style="margin-top:8px;padding:7px 12px;font-size:12px" onclick="alert('Fajar Nugraha - Informatika')">Detail Guru</button></div></div></div></section>
+</div>
+
+
+<div id="page-fasilitas" class="page">
+<section><div class="container"><div class="section-title"><h2>🏫 Fasilitas Sekolah</h2><p>Klik kartu untuk lihat detail</p></div><div style="text-align:center;margin-bottom:20px"><button class="btn" onclick="showPage('home')">← Kembali ke Beranda</button></div><div class="grid3"><div class="card fasilitas-card" onclick="detailFasilitas('Lab Komputer','30 unit komputer, internet cepat, AC. Lokasi: Gedung B Lantai 2')"><h3>💻 Lab Komputer</h3><p>30 unit komputer.</p><button class="btn" style="margin-top:10px">Lihat Detail →</button></div><div class="card fasilitas-card" onclick="detailFasilitas('Perpustakaan','2000+ buku, ruang baca nyaman. Lokasi: Gedung A Lantai 1')"><h3>📚 Perpustakaan</h3><p>2000+ buku.</p><button class="btn" style="margin-top:10px">Lihat Detail →</button></div><div class="card fasilitas-card" onclick="detailFasilitas('Lab IPA','Lab Biologi, Fisika, Kimia lengkap. Lokasi: Gedung B Lantai 1')"><h3>🔬 Lab IPA</h3><p>Alat praktikum lengkap.</p><button class="btn" style="margin-top:10px">Lihat Detail →</button></div><div class="card fasilitas-card" onclick="detailFasilitas('Lapangan','Lapangan Futsal, Basket, Upacara. Lokasi: Area Tengah')"><h3>⚽ Lapangan</h3><p>Futsal, Basket, Upacara.</p><button class="btn" style="margin-top:10px">Lihat Detail →</button></div><div class="card fasilitas-card" onclick="detailFasilitas('Aula','Kapasitas 300 orang, sound system. Lokasi: Gedung Utama')"><h3>🎭 Aula</h3><p>Kapasitas 300 orang.</p><button class="btn" style="margin-top:10px">Lihat Detail →</button></div><div class="card fasilitas-card" onclick="detailFasilitas('Masjid Sekolah','Untuk sholat, kajian Rohis, tahfidz. Lokasi: Samping Gerbang')"><h3>🕌 Masjid</h3><p>Sholat, kajian, tahfidz.</p><button class="btn" style="margin-top:10px">Lihat Detail →</button></div></div></div></section>
+</div>
+
+<div id="page-kesiswaan" class="page">
+<section><div class="container"><div class="section-title"><h2>Halaman Kesiswaan</h2></div><div style="text-align:center;margin-bottom:20px"><button class="btn" onclick="showPage('home')">← Kembali ke Beranda</button></div><div class="grid2"><div class="card"><h3 style="color:var(--biru)">📅 Kegiatan Mendatang</h3><p>• 15 Nov: Lomba Futsal<br>• 20 Nov: Class Meeting<br>• 25 Nov: Hari Guru<br>• 1 Des: Bakti Sosial</p></div><div class="card"><h3 style="color:var(--biru)">📅 Kalender OSIS</h3><p>• Senin: Upacara<br>• Jumat: Jumat Bersih<br>• Sabtu: Ekstrakurikuler & OSIS</p></div></div></div></section>
+<section style="background:#fff"><div class="container"><div class="section-title"><h2>Ekstrakurikuler</h2></div><div class="grid3"><div class="card ekstra-card"><img src="pr.jpeg" alt="Pramuka"><div class="ekstra-content"><span class="tag">WAJIB</span><h3>🏕️ Pramuka</h3><p>Jumat 15.00 - 17.00</p><button class="btn" onclick="alert('Pramuka: Jumat 15.00')">Lihat Jadwal</button></div></div><div class="card ekstra-card"><img src="bas.jpeg" alt="Basket"><div class="ekstra-content"><span class="tag">OLAHRAGA</span><h3>🏀 Basket</h3><p>Senin & Rabu 15.30</p><button class="btn" onclick="alert('Basket: Senin & Rabu')">Lihat Jadwal</button></div></div><div class="card ekstra-card"><img src="fut.jpeg" alt="Futsal"><div class="ekstra-content"><span class="tag">OLAHRAGA</span><h3>⚽ Futsal</h3><p>Selasa & Kamis 15.30</p><button class="btn" onclick="alert('Futsal: Selasa & Kamis')">Lihat Jadwal</button></div></div></div></div></section>
+</div>
+
+<div id="page-berita" class="page">
+<section><div class="container"><div class="section-title"><h2>Berita Terbaru</h2></div><div style="text-align:center;margin-bottom:20px"><button class="btn" onclick="showPage('home')">← Kembali ke Beranda</button></div><div class="grid3"><div class="card berita-card" onclick="alert('Kegiatan Belajar Mengajar')"><img src="ll.jpeg" alt="Berita 1"><div class="berita-content"><h3>Kegiatan Belajar Mengajar</h3><p>Siswa mengikuti pembelajaran dengan penuh semangat.</p></div></div><div class="card berita-card" onclick="alert('Prestasi Siswa')"><img src="sis.jpeg" alt="Berita 2"><div class="berita-content"><h3>Prestasi Siswa</h3><p>Mengembangkan bakat melalui berbagai perlombaan.</p></div></div><div class="card berita-card" onclick="showPage('ppdb')"><img src="sek.jpg" alt="Berita 3"><div class="berita-content"><h3>Penerimaan Siswa Baru</h3><p>PPDB 2026 telah dibuka. Klik untuk daftar.</p></div></div></div></div></section>
+</div>
+
+
+<div id="page-ppdb" class="page">
+<section class="ppdb"><div class="container"><div class="section-title"><h2>Halaman Pendaftaran (PPDB)</h2></div><div style="text-align:center;margin-bottom:20px"><button class="btn btn-outline" onclick="showPage('home')">← Kembali ke Beranda</button></div><div class="form-box">
+<h3 style="color:var(--biru);text-align:center;margin-bottom:15px">Alur Pendaftaran</h3>
+<div class="alur-pendaftaran">
+  <div class="step-box"><div class="step-number">1</div><b>Pendaftaran</b><p style="font-size:12px">Isi Form Online</p></div>
+  <div class="step-box"><div class="step-number">2</div><b>Seleksi</b><p style="font-size:12px">Verifikasi Berkas</p></div>
+  <div class="step-box"><div class="step-number">3</div><b>Pengumuman</b><p style="font-size:12px">Daftar Ulang</p></div>
+</div>
+<h3 style="color:var(--biru);text-align:center;margin-bottom:15px">📄 Persyaratan PDF</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:20px"><button class="btn" onclick="alert('Download: Persyaratan PPDB PDF')">⬇️ Download Persyaratan PDF</button></div>
+
+<h3 style="color:var(--biru);text-align:center;margin-bottom:15px">Formulir Online</h3>
+<form id="formPPDB"><div class="form-group"><label>Nama Lengkap</label><input id="namaPPDB" required placeholder="Masukkan nama lengkap"></div><div class="form-group"><label>Email</label><input id="emailPPDB" type="email" required placeholder="Masukkan email"></div><div class="form-group"><label>NISN</label><input id="nisnPPDB" required placeholder="Masukkan NISN"></div><div class="form-group"><label>Asal Sekolah</label><input id="asalPPDB" required placeholder="Masukkan asal sekolah"></div><div class="form-group"><label>No HP</label><input id="hpPPDB" required placeholder="Masukkan nomor HP"></div><button class="btn" style="width:100%" type="submit">Submit Pendaftaran</button></form></div></div></section>
+</div>
+
+<div id="page-kontak" class="page">
+<section><div class="container"><div class="section-title"><h2>📞 Kontak Sekolah</h2></div><div class="kontak-grid"><div><div class="kontak-item"><div class="kontak-icon">📍</div><div><b>Alamat Sekolah</b><p>Lembang, Kabupaten Bandung Barat, Jawa Barat 40391</p></div></div><div class="kontak-item"><div class="kontak-icon">📞</div><div><b>Telepon / WA</b><p>(022) 1234-5678<br>0812-3456-7890</p></div></div><div class="kontak-item"><div class="kontak-icon">✉️</div><div><b>Email</b><p>info@smanusantara.sch.id</p></div></div><a class="btn" href="https://wa.me/6281234567890" target="_blank">💬 Chat WhatsApp</a></div><div><div class="form-box" style="margin:0;max-width:100%"><h3 style="color:var(--biru)">Kirim Pesan</h3><form id="formKontak"><div class="form-group"><label>Nama</label><input id="kontakNama" required></div><div class="form-group"><label>Nomor HP / Email</label><input id="kontakHP" required></div><div class="form-group"><label>Pesan</label><textarea id="kontakPesan" rows="4" required></textarea></div><button class="btn" style="width:100%" type="submit">Kirim ke WA</button></form></div></div></div><div style="margin-top:30px"><h3 style="color:var(--biru);margin-bottom:10px">🗺️ Peta Lokasi Sekolah</h3><iframe src="https://maps.google.com/maps?q=Lembang%2C%20Bandung%20Barat%2C%20Indonesia&output=embed" style="width:100%;height:350px;border:none;border-radius:12px" loading="lazy"></iframe></div></div></section>
+</div>
+
+<footer><div class="container"><div class="footer-grid"><div><h3>Kailindah Academy</h3><p>Membangun generasi cerdas, kreatif, berkarakter, dan berprestasi.</p><br><p>Jakarta, Indonesia</p><p>📞 (022) 1234-5678 | 0812-3456-7890</p><p>✉️ info@kailindahacademy.sch.id</p></div><div><h3>Menu</h3><a href="#" onclick="showPage('profil')">Profil</a><a href="#" onclick="showPage('akademik')">Akademik</a><a href="#" onclick="showPage('kesiswaan')">Kesiswaan</a><a href="#" onclick="showPage('fasilitas')">Fasilitas</a><a href="#" onclick="showPage('ppdb')">PPDB</a><a href="#" onclick="showPage('berita')">Berita</a><a href="#" onclick="showPage('kontak')">Kontak</a></div><div><h3>Kontak Cepat</h3><a href="https://wa.me/6281234567890" target="_blank">💬 WhatsApp Admin</a><a href="mailto:info@smanusantara.sch.id">✉️ Email Sekolah</a><a href="#" onclick="bukaLogin()">🔐 Login Portal</a></div></div><div style="text-align:center;border-top:1px solid rgba(255,255,255,.2);padding-top:15px"><p>© 2026 Kailindah Academy. All Rights Reserved.</p></div></div></footer>
+</div>
+
+
+<div class="lightbox" id="lightbox" onclick="tutupLightbox()"><img id="lightboxImg" src="" alt="Foto"><p id="lightboxCaption"></p><p style="font-size:12px;color:#aaa">Klik di luar foto untuk tutup</p></div>
+
+
+<div class="modal" id="loginModal" onclick="if(event.target.id==='loginModal') tutupLogin()"><div class="modal-content"><button class="close" onclick="tutupLogin()">×</button><h2 style="color:var(--biru);text-align:center;margin-bottom:15px">Portal Akademik</h2><form id="formLogin"><div class="form-group"><label>Username</label><input id="username" required placeholder="Masukkan username"></div><div class="form-group"><label>Password</label><input id="password" type="password" required placeholder="Masukkan password"></div><button class="btn" style="width:100%" type="submit">Login</button></form><div style="background:var(--pucat);padding:10px;border-radius:7px;font-size:13px;margin-top:12px"><b>Akun demo:</b><br>Username: siswa | Password: siswa123</div></div></div>
+
+
+<div id="portal"><div class="portal-header"><div><h2>Kailindah Academy</h2><p>Portal Akademik</p></div><button class="btn btn-outline" onclick="logout()">Logout</button></div><div class="portal-layout"><aside class="sidebar"><button class="active" onclick="bukaHalaman('dashboard',this)">Dashboard</button><button onclick="bukaHalaman('jadwal',this)">📅 Jadwal Pelajaran</button><button onclick="bukaHalaman('rapor',this)">📊 Nilai Rapor</button><button onclick="bukaHalaman('absensi',this)">📋 Absensi</button><button onclick="bukaHalaman('pengumuman',this)">📢 Pengumuman Guru</button></aside><main class="portal-main">
+
+<div class="portal-page active" id="dashboard"><h2>Dashboard Siswa</h2><p>Selamat datang di portal siswa!</p><br><div class="grid3"><div class="card"><h3>XII IPA 1</h3><p>Kelas Siswa</p></div><div class="card"><h3>95%</h3><p>Kehadiran Semester Ini</p></div><div class="card"><h3>3</h3><p>Pengumuman Baru</p></div></div><br><div class="card"><h3>Informasi Siswa</h3><p>Nama: Sean| NIS: 2026001 | Status: Aktif</p></div></div>
+
+<div class="portal-page" id="jadwal"><h2>📅 Jadwal Pelajaran</h2><div class="card"><p><b>Senin:</b> Matematika, Bahasa Indonesia</p><p><b>Selasa:</b> Fisika, Bahasa Inggris</p><p><b>Rabu:</b> Kimia, Biologi</p><p><b>Kamis:</b> Sejarah, PJOK</p><p><b>Jumat:</b> Agama, Seni Budaya</p></div></div>
+
+<div class="portal-page" id="rapor"><h2>📊 Nilai Rapor</h2><div class="card"><p>Matematika: <b>88 (A)</b></p><p>Bahasa Indonesia: <b>90 (A)</b></p><p>Bahasa Inggris: <b>85 (B+)</b></p><p>Fisika: <b>87 (A-)</b></p></div></div>
+
+<div class="portal-page" id="absensi"><h2>📋 Rekap Absensi</h2><div class="card"><p>Hadir: <b>120 Hari</b></p><p>Izin: <b>2 Hari</b></p><p>Sakit: <b>1 Hari</b></p><p>Tanpa Keterangan: <b>0 Hari</b></p></div></div>
+
+<div class="portal-page" id="pengumuman"><h2>📢 Pengumuman Guru</h2><div class="pengumuman-item"><h3>Ujian Semester</h3><p>Persiapkan diri untuk ujian semester yang akan dilaksanakan tanggal 15 Desember 2026.</p></div><div class="pengumuman-item"><h3>Pengumpulan Tugas Fisika</h3><p>Batas waktu pengumpulan tugas Bab 4 adalah besok pukul 23:59 WIB.</p></div></div>
+
+</main></div></div>
+
+<script>
+let slideIdx=0;
+function showSlide(n){let s=document.querySelectorAll(".slide");let d=document.querySelectorAll(".dot");slideIdx=(n+s.length)%s.length;s.forEach(x=>x.classList.remove("active"));d.forEach(x=>x.classList.remove("active"));s[slideIdx].classList.add("active");if(d[slideIdx]) d[slideIdx].classList.add("active")}
+function gantiSlide(n){showSlide(slideIdx+n)}
+function keSlide(n){showSlide(n)}
+setInterval(()=>{if(document.getElementById("page-home")&&document.getElementById("page-home").classList.contains("active")) gantiSlide(1)},5000);
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));let el=document.getElementById("page-"+p);if(el){el.classList.add("active");}window.scrollTo(0,0)}
+function toggleMenu(){document.getElementById("navLinks").classList.toggle("show")}
+function tutupMenu(){document.getElementById("navLinks").classList.remove("show")}
+function bukaLogin(){document.getElementById("loginModal").classList.add("active")}
+function tutupLogin(){document.getElementById("loginModal").classList.remove("active")}
+function detailFasilitas(judul,isi){alert(judul+"\n\n"+isi)}
+function bukaFotoKepala(src,alt){document.getElementById("lightboxImg").src=src;document.getElementById("lightboxCaption").innerText=alt;document.getElementById("lightbox").classList.add("active")}
+document.getElementById("formLogin").addEventListener("submit",function(e){e.preventDefault();let u=document.getElementById("username").value,p=document.getElementById("password").value;if(u==="siswa"&&p==="siswa123"){tutupLogin();document.getElementById("website").style.display="none";document.getElementById("portal").style.display="block";window.scrollTo(0,0);this.reset()}else alert("Username atau password salah! Coba siswa / siswa123")});
+function logout(){if(confirm("Yakin logout?")){document.getElementById("portal").style.display="none";document.getElementById("website").style.display="block";showPage('home')}}
+function bukaHalaman(n,t){document.querySelectorAll(".portal-page").forEach(h=>h.classList.remove("active"));document.querySelectorAll(".sidebar button").forEach(b=>b.classList.remove("active"));document.getElementById(n).classList.add("active");if(t) t.classList.add("active")}
+document.getElementById("formPPDB").addEventListener("submit",function(e){e.preventDefault();let nama=document.getElementById("namaPPDB").value;alert("Terima kasih, "+nama+"! Pendaftaran berhasil disimpan.");this.reset()});
+document.getElementById("formKontak").addEventListener("submit",function(e){e.preventDefault();let n=document.getElementById("kontakNama").value,m=document.getElementById("kontakPesan").value,h=document.getElementById("kontakHP").value;window.open("https://wa.me/6281234567890?text="+encodeURIComponent("Halo, saya "+n+" ("+h+"). "+m),"_blank");alert("Terima kasih "+n+", pesan dibuka di WhatsApp Admin!");this.reset()});
+document.querySelectorAll(".slide img").forEach(function(img){img.addEventListener("click",function(e){e.stopPropagation();document.getElementById("lightboxImg").src=img.src;document.getElementById("lightboxCaption").innerText=img.alt;document.getElementById("lightbox").classList.add("active")})});
+function tutupLightbox(){document.getElementById("lightbox").classList.remove("active")}
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){tutupLogin();tutupLightbox()}});
+</script>
+</body>
+</html>
